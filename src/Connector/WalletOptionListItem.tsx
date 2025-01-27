@@ -11,10 +11,10 @@ export default function WalletOptionListItem({ wallet, onClick }: Props) {
   return (
     <li>
       <Button
-        className="flex w-full flex-row items-center justify-start gap-2 text-left"
+        className="flex h-auto w-full flex-row items-center justify-start gap-[14px] bg-foreground py-1.5 text-left hover:bg-secondary-foreground/20"
         onClick={onClick}
       >
-        <WalletIcon className="size-6" walletKey={key} />
+        <WalletIcon className="size-10" walletKey={key} />
         <p>{name}</p>
       </Button>
     </li>
