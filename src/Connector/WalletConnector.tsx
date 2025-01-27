@@ -5,9 +5,13 @@ import WalletOptionList from "./WalletOptionList";
 export default function WalletConnector() {
   const [showOptions, setShowOptions] = useState(false);
 
-  if (!showOptions) {
-    return <ConnectWalletButton onClick={() => setShowOptions(true)} />;
-  }
-
-  return <WalletOptionList />;
+  return (
+    <>
+      <ConnectWalletButton onClick={() => setShowOptions(true)} />
+      <WalletOptionList
+        isOpen={showOptions}
+        onClose={() => setShowOptions(false)}
+      />
+    </>
+  );
 }

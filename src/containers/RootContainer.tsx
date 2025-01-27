@@ -1,5 +1,6 @@
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
+import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import env from "../utils/envSchema";
@@ -13,12 +14,15 @@ export default function RootContainer() {
     <DynamicContextProvider
       settings={{
         environmentId: env.VITE_DYNAMIC_ENVIRONMENT_ID,
+        initialAuthenticationMode: "connect-only",
         walletConnectors: [EthereumWalletConnectors], // TODO update
       }}
     >
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <AppContainer />
+          <DynamicWagmiConnector>
+            <AppContainer />
+          </DynamicWagmiConnector>
         </QueryClientProvider>
       </WagmiProvider>
     </DynamicContextProvider>
