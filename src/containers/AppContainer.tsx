@@ -1,23 +1,22 @@
-import {
-  useDynamicContext,
-  useUserWallets,
-} from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { LoaderCircle } from "lucide-react";
 import PageLayout from "../components/PageLayout";
 import WalletConnector from "../WalletConnector";
 
 export default function AppContainer() {
-  const userWallets = useUserWallets();
-  const { handleUnlinkWallet } = useDynamicContext();
+  const { sdkHasLoaded, primaryWallet, handleUnlinkWallet } =
+    useDynamicContext();
 
-  return (
-    <PageLayout>
-      {!userWallets.length ? (
-        <WalletConnector />
-      ) : (
-        <button onClick={() => handleUnlinkWallet(userWallets[0].id)}>
-          disconnect
-        </button>
-      )}
-    </PageLayout>
-  );
+  let content = <LoaderCircle className="size-8 animate-spin" />;
+  if (sdkHasLoaded) {
+    content = primaryWallet ? (
+      <button onClick={() => handleUnlinkWallet(primaryWallet.id)}>
+        disconnect
+      </button>
+    ) : (
+      <WalletConnector />
+    );
+  }
+
+  return <PageLayout>{content}</PageLayout>;
 }
