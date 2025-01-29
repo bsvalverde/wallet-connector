@@ -15,7 +15,7 @@ export default function RootContainer() {
       settings={{
         environmentId: env.VITE_DYNAMIC_ENVIRONMENT_ID,
         initialAuthenticationMode: "connect-only",
-        walletConnectors: [EthereumWalletConnectors], // TODO update
+        walletConnectors: [EthereumWalletConnectors],
       }}
     >
       <WagmiProvider config={config}>
