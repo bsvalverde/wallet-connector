@@ -1,12 +1,12 @@
-import { mainnet, sepolia } from "viem/chains";
+import { bsc, mainnet } from "viem/chains";
 import { createConfig, http } from "wagmi";
 
 export const config = createConfig({
-  chains: [mainnet, sepolia], // TODO update
+  chains: [mainnet, bsc],
   multiInjectedProviderDiscovery: false,
   transports: {
     [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [bsc.id]: http(),
   },
 });
 
