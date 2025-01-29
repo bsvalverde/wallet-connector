@@ -1,13 +1,15 @@
 import { Button } from "@/components/UI/Button";
+import { WalletOption } from "@/types/wallet";
 import { WalletIcon } from "@dynamic-labs/wallet-book";
 
 interface Props {
-  wallet: { name: string; key: string };
+  wallet: WalletOption;
   onClick: VoidFunction;
 }
 
 export default function WalletOptionListItem({ wallet, onClick }: Props) {
   const { key, name } = wallet;
+
   return (
     <li>
       <Button

@@ -3,7 +3,7 @@ import {
   useUserWallets,
 } from "@dynamic-labs/sdk-react-core";
 import PageLayout from "../components/PageLayout";
-import WalletConnector from "../Connector/WalletConnector";
+import WalletConnector from "../WalletConnector";
 
 export default function AppContainer() {
   const userWallets = useUserWallets();

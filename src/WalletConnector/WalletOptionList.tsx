@@ -5,28 +5,27 @@ import {
   DialogTitle,
 } from "@/components/UI/Dialog";
 import { ScrollArea } from "@/components/UI/ScrollArea";
-import {
-  useDynamicContext,
-  useWalletOptions,
-} from "@dynamic-labs/sdk-react-core";
+import { WalletOption } from "@/types/wallet";
 import { LoaderCircle } from "lucide-react";
 import WalletOptionListItem from "./WalletOptionListItem";
 
 interface Props {
+  walletOptions: WalletOption[];
+  isLoading: boolean;
   isOpen: boolean;
   onClose: VoidFunction;
+  onWalletSelect: (walletKey: string) => void;
 }
 
-export default function WalletOptionList({ isOpen, onClose }: Props) {
-  const { sdkHasLoaded } = useDynamicContext();
-  const { getFilteredWalletOptions, selectWalletOption } = useWalletOptions();
-
-  const walletOptions = getFilteredWalletOptions(
-    (wallets) => wallets.filter((wallet) => wallet.isInstalledOnBrowser), // filter with appropriate walletConnectors https://docs.dynamic.xyz/wallets/advanced-wallets/sort-and-filter-wallets#usage
-  );
-
+export default function WalletOptionList({
+  walletOptions,
+  isLoading,
+  isOpen,
+  onClose,
+  onWalletSelect,
+}: Props) {
   let content = <LoaderCircle className="animate-spin" />;
-  if (sdkHasLoaded) {
+  if (!isLoading) {
     if (walletOptions.length) {
       content = (
         <ScrollArea className="-mx-1 h-60 w-full">
@@ -36,7 +35,7 @@ export default function WalletOptionList({ isOpen, onClose }: Props) {
                 <WalletOptionListItem
                   key={option.key}
                   wallet={option}
-                  onClick={() => selectWalletOption(option.key)}
+                  onClick={() => onWalletSelect(option.key)}
                 />
               ))}
             </ul>
