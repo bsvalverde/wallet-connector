@@ -29,7 +29,7 @@ export default function WalletOptionList({
   );
   if (walletOptions.length) {
     content = (
-      <ScrollArea className="-mx-1 h-60 w-full">
+      <ScrollArea className="-mx-1 size-full">
         <div className="w-full px-1">
           <ul className="flex flex-col gap-2 pt-2">
             {walletOptions.map((option) => (

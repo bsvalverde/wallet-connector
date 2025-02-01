@@ -1,8 +1,8 @@
 import WalletInformation from "@/WalletInformation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { LoaderCircle } from "lucide-react";
-import PageLayout from "../components/PageLayout";
 import WalletConnector from "../WalletConnector";
+import PageLayout from "./PageLayout";
 
 export default function AppContainer() {
   const { sdkHasLoaded, primaryWallet } = useDynamicContext();
