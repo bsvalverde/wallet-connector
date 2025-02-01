@@ -3,4 +3,7 @@ export interface Network {
   name: string;
   vanityName?: string;
   iconUrls: string[];
+  nativeCurrency: {
+    symbol: string;
+  };
 }
