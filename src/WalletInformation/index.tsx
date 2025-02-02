@@ -1,5 +1,4 @@
-import { useDisconnect } from "@/components/hooks/useDisconnect";
-import { Wallet } from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext, Wallet } from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from "react";
 import { WalletAuthenticationDialog } from "./WalletAuthenticationDialog";
 import { WalletInformationLayout } from "./WalletInformationLayout";
@@ -11,7 +10,7 @@ interface Props {
 export function WalletInformation({ wallet }: Props) {
   const [isWalletAuthenticated, setIsWalletAuthenticated] = useState(false);
 
-  const { disconnect } = useDisconnect();
+  const { handleLogOut } = useDynamicContext();
 
   useEffect(() => {
     setIsWalletAuthenticated(false);
@@ -23,7 +22,7 @@ export function WalletInformation({ wallet }: Props) {
         wallet={wallet}
         isOpen={!isWalletAuthenticated}
         onWalletValidation={() => setIsWalletAuthenticated(true)}
-        onCancel={disconnect}
+        onCancel={handleLogOut}
       />
       <WalletInformationLayout wallet={wallet} />
     </>
