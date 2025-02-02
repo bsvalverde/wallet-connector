@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import { NetworkSelector } from "./NetworkSelector";
 import { WalletActions } from "./WalletActions";
 import { WalletNativeBalance } from "./WalletNativeBalance";
+import { WalletSelector } from "./WalletSelector";
 
 interface Props {
   wallet: Wallet;
@@ -57,11 +58,13 @@ export function WalletInformation({ wallet }: Props) {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <div className="rounded-default bg-card">
+        <div className="flex flex-row items-center rounded-default bg-card">
           <WalletNativeBalance
             wallet={wallet}
             isNetworkLoading={isNetworkLoading}
           />
+          <span className="text-muted-foreground">|</span>
+          <WalletSelector disabled={isNetworkLoading} />
         </div>
         <div className="rounded-default bg-card p-4">
           <WalletActions wallet={wallet} />

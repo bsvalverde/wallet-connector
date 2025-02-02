@@ -6,7 +6,6 @@ import {
   Wallet,
 } from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from "react";
-import { WalletSelector } from "./WalletSelector";
 
 interface Props {
   wallet: Wallet;
@@ -36,16 +35,12 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
   ) as EvmNetwork;
 
   return (
-    <div className="flex flex-row items-center">
-      <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
-        {isNetworkLoading || isBalanceLoading ? (
-          <Spinner className="size-4 opacity-70" />
-        ) : (
-          formatWalletBalance({ balance, network: currentNetwork })
-        )}
-      </span>
-      <span className="text-muted-foreground">|</span>
-      <WalletSelector disabled={isNetworkLoading} />
-    </div>
+    <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
+      {isNetworkLoading || isBalanceLoading ? (
+        <Spinner className="size-4 opacity-70" />
+      ) : (
+        formatWalletBalance({ balance, network: currentNetwork })
+      )}
+    </span>
   );
 }
