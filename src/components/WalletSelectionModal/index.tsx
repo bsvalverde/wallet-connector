@@ -5,22 +5,37 @@ import {
   DialogTitle,
 } from "@/components/UI/Dialog";
 import { ScrollArea } from "@/components/UI/ScrollArea";
-import { WalletOption } from "@/types/wallet";
-import { WalletOptionListItem } from "./WalletOptionListItem";
+import {
+  FilterChain,
+  useDynamicEvents,
+  useSwitchWallet,
+  useWalletItemActions,
+  useWalletOptions,
+} from "@dynamic-labs/sdk-react-core";
+import { pipe } from "@dynamic-labs/utils";
+import { WalletSelectionOption } from "./WalletSelectionOption";
 
 interface Props {
-  walletOptions: WalletOption[];
   isOpen: boolean;
-  onClose: VoidFunction;
-  onWalletSelect: (walletKey: string) => void;
+  onOpenChange: (newValue: boolean) => void;
 }
 
-export function WalletOptionList({
-  walletOptions,
-  isOpen,
-  onClose,
-  onWalletSelect,
-}: Props) {
+export function WalletSelectionModal({ isOpen, onOpenChange }: Props) {
+  const switchWallet = useSwitchWallet();
+  const { getFilteredWalletOptions } = useWalletOptions();
+  const { openWallet } = useWalletItemActions();
+
+  useDynamicEvents("walletAdded", (newWallet) => {
+    switchWallet(newWallet.id);
+    onOpenChange(false);
+  });
+
+  const walletOptions = getFilteredWalletOptions(
+    pipe(FilterChain("EVM")).pipe((wallets) =>
+      wallets.filter((wallet) => wallet.isInstalledOnBrowser),
+    ),
+  );
+
   let content = (
     <p className="text-center text-sm">
       There are no wallets installed.
@@ -33,10 +48,10 @@ export function WalletOptionList({
         <div className="w-full px-1">
           <ul className="flex flex-col gap-2 pt-2">
             {walletOptions.map((option) => (
-              <WalletOptionListItem
+              <WalletSelectionOption
                 key={option.key}
                 wallet={option}
-                onClick={() => onWalletSelect(option.key)}
+                onClick={() => openWallet(option.key)}
               />
             ))}
           </ul>
@@ -46,7 +61,7 @@ export function WalletOptionList({
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         onInteractOutside={(event) => event.preventDefault()}
         aria-describedby={undefined}
