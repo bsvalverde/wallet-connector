@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/UI/Dialog";
@@ -13,6 +14,7 @@ import {
   useWalletOptions,
 } from "@dynamic-labs/sdk-react-core";
 import { pipe } from "@dynamic-labs/utils";
+import { VisuallyHidden } from "../UI/VisuallyHidden";
 import { WalletSelectionOption } from "./WalletSelectionOption";
 
 interface Props {
@@ -64,11 +66,15 @@ export function WalletSelectionDialog({ isOpen, onOpenChange }: Props) {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         onInteractOutside={(event) => event.preventDefault()}
-        aria-describedby="Dialog listing installed wallets to be chosen for connection"
         hideOverlay
       >
         <DialogHeader>
           <DialogTitle>Connect Wallet</DialogTitle>
+          <VisuallyHidden asChild>
+            <DialogDescription>
+              Dialog listing installed wallets to be chosen for connection
+            </DialogDescription>
+          </VisuallyHidden>
         </DialogHeader>
         <div className="flex h-60 items-center justify-center">{content}</div>
       </DialogContent>

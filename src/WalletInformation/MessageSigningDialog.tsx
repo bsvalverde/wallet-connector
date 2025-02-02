@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -10,6 +11,7 @@ import {
 } from "@/components/UI/Dialog";
 import { LoadingButton } from "@/components/UI/LoadingButton";
 import { Textarea } from "@/components/UI/Textarea";
+import { VisuallyHidden } from "@/components/UI/VisuallyHidden";
 import { Wallet } from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from "react";
 
@@ -43,9 +45,15 @@ export function MessageSigningDialog({ wallet }: Props) {
       <DialogTrigger asChild>
         <Button>Sign Message</Button>
       </DialogTrigger>
-      <DialogContent aria-describedby="Dialog that allows user to type a message to be signed by the currently displayed wallet">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Sign a message</DialogTitle>
+          <VisuallyHidden asChild>
+            <DialogDescription>
+              Dialog that allows user to type a message to be signed by the
+              currently displayed wallet
+            </DialogDescription>
+          </VisuallyHidden>
         </DialogHeader>
         <Textarea
           value={message}
