@@ -20,7 +20,7 @@ interface Props {
   onOpenChange: (newValue: boolean) => void;
 }
 
-export function WalletSelectionModal({ isOpen, onOpenChange }: Props) {
+export function WalletSelectionDialog({ isOpen, onOpenChange }: Props) {
   const switchWallet = useSwitchWallet();
   const { getFilteredWalletOptions } = useWalletOptions();
   const { openWallet } = useWalletItemActions();

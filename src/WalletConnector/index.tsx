@@ -1,19 +1,19 @@
 import { Button } from "@/components/UI/Button";
-import { WalletSelectionModal } from "@/components/WalletSelectionModal";
+import { WalletSelectionDialog } from "@/components/WalletSelectionDialog";
 import { useState } from "react";
 
 export function WalletConnector() {
-  const [showWalletSelectionModal, setShowWalletSelectionModal] =
+  const [showWalletSelectionDialog, setShowWalletSelectionDialog] =
     useState(false);
 
   return (
     <>
-      <Button onClick={() => setShowWalletSelectionModal(true)}>
+      <Button onClick={() => setShowWalletSelectionDialog(true)}>
         Connect Wallet
       </Button>
-      <WalletSelectionModal
-        isOpen={showWalletSelectionModal}
-        onOpenChange={setShowWalletSelectionModal}
+      <WalletSelectionDialog
+        isOpen={showWalletSelectionDialog}
+        onOpenChange={setShowWalletSelectionDialog}
       />
     </>
   );

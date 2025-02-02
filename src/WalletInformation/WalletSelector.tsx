@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/Select";
-import { WalletSelectionModal } from "@/components/WalletSelectionModal";
+import { WalletSelectionDialog } from "@/components/WalletSelectionDialog";
 import { formatWalletAddress } from "@/utils/formatWalletInformation";
 import {
   useDynamicContext,
@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 
 export function WalletSelector() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const userWallets = useUserWallets();
   const { primaryWallet } = useDynamicContext();
@@ -29,8 +29,8 @@ export function WalletSelector() {
       <Select
         value={currentWallet.id}
         onValueChange={(newValue) => {
-          if (newValue === "Open Modal") {
-            setIsModalOpen(true);
+          if (newValue === "Open Dialog") {
+            setIsDialogOpen(true);
           } else {
             switchWallet(newValue);
           }
@@ -48,12 +48,12 @@ export function WalletSelector() {
               </div>
             </SelectItem>
           ))}
-          <SelectItem value={"Open Modal"}>Connect new wallet</SelectItem>
+          <SelectItem value={"Open Dialog"}>Connect new wallet</SelectItem>
         </SelectContent>
       </Select>
-      <WalletSelectionModal
-        isOpen={isModalOpen}
-        onOpenChange={setIsModalOpen}
+      <WalletSelectionDialog
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
       />
     </>
   );
