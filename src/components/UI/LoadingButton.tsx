@@ -11,20 +11,22 @@ export function LoadingButton({
   className,
   disabled,
   loading,
+  variant,
   ...props
 }: Props) {
   return (
     <Button
       {...props}
-      className={cn(className, "relative")}
+      className={cn(className, "relative", loading && "text-transparent")}
       disabled={disabled || loading}
+      variant={variant}
     >
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center p-1">
-          <Spinner className="size-4" />
+          <Spinner variant={variant} className="size-4" />
         </div>
       )}
-      <div className={cn(loading && "text-transparent")}>{children}</div>
+      {children}
     </Button>
   );
 }
