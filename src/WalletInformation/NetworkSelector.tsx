@@ -10,7 +10,7 @@ import {
   useSwitchNetwork,
   Wallet,
 } from "@dynamic-labs/sdk-react-core";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 interface Props {
   wallet: Wallet;
@@ -47,7 +47,17 @@ export function NetworkSelector({ wallet }: Props) {
     [wallet, switchNetwork],
   );
 
-  const { evm: networkOptions } = networkConfigurations || {};
+  const networkOptions = useMemo(
+    () => networkConfigurations?.evm || [],
+    [networkConfigurations],
+  );
+
+  useEffect(() => {
+    const availableChainIds = networkOptions.map((network) => network.chainId);
+    if (!availableChainIds.includes(currentNetworkChainId || 0)) {
+      handleNetworkChange(1);
+    }
+  }, [currentNetworkChainId, handleNetworkChange, networkOptions]);
 
   return (
     <Select
@@ -59,22 +69,20 @@ export function NetworkSelector({ wallet }: Props) {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {(networkOptions || []).map(
-          ({ chainId, iconUrls, vanityName, name }) => (
-            <SelectItem key={chainId} value={`${chainId}`}>
-              <div className="flex flex-row items-center gap-1">
-                {iconUrls[0] && (
-                  <img
-                    className="size-5"
-                    src={iconUrls[0]}
-                    alt={`${vanityName || name}'s icon`}
-                  />
-                )}
-                <span className="px-1">{vanityName || name}</span>
-              </div>
-            </SelectItem>
-          ),
-        )}
+        {networkOptions.map(({ chainId, iconUrls, vanityName, name }) => (
+          <SelectItem key={chainId} value={`${chainId}`}>
+            <div className="flex flex-row items-center gap-1">
+              {iconUrls[0] && (
+                <img
+                  className="size-5"
+                  src={iconUrls[0]}
+                  alt={`${vanityName || name}'s icon`}
+                />
+              )}
+              <span className="px-1">{vanityName || name}</span>
+            </div>
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
