@@ -50,6 +50,7 @@ export default function WalletOptionList({
       <DialogContent
         onInteractOutside={(event) => event.preventDefault()}
         aria-describedby={undefined}
+        hideOverlay
       >
         <DialogHeader>
           <DialogTitle>Connect Wallet</DialogTitle>

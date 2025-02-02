@@ -6,12 +6,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/Select";
+import { Spinner } from "@/components/UI/Spinner";
 import {
   formatWalletAddress,
   formatWalletBalance,
 } from "@/utils/formatWalletInformation";
 import { useDynamicContext, Wallet } from "@dynamic-labs/sdk-react-core";
-import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -48,7 +48,7 @@ export default function WalletNativeBalance({
     <div className="flex flex-row items-center">
       <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
         {isNetworkLoading || isBalanceLoading ? (
-          <LoaderCircle className="size-4 animate-spin opacity-70" />
+          <Spinner className="size-4 opacity-70" />
         ) : (
           formatWalletBalance({ balance, network: currentNetwork })
         )}

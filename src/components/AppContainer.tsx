@@ -1,13 +1,13 @@
 import WalletInformation from "@/WalletInformation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { LoaderCircle } from "lucide-react";
 import WalletConnector from "../WalletConnector";
 import PageLayout from "./PageLayout";
+import { Spinner } from "./UI/Spinner";
 
 export default function AppContainer() {
   const { loadingNetwork, sdkHasLoaded, primaryWallet } = useDynamicContext();
 
-  let content = <LoaderCircle className="size-8 animate-spin" />;
+  let content = <Spinner className="size-8" />;
   if (sdkHasLoaded && !loadingNetwork) {
     content = primaryWallet ? (
       <WalletInformation wallet={primaryWallet} />
