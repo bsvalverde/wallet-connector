@@ -15,11 +15,7 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 import { useState } from "react";
 
-interface Props {
-  disabled: boolean;
-}
-
-export function WalletSelector({ disabled }: Props) {
+export function WalletSelector() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const userWallets = useUserWallets();
@@ -32,7 +28,6 @@ export function WalletSelector({ disabled }: Props) {
     <>
       <Select
         value={currentWallet.id}
-        disabled={disabled}
         onValueChange={(newValue) => {
           if (newValue === "Open Modal") {
             setIsModalOpen(true);

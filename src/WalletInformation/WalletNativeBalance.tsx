@@ -9,10 +9,9 @@ import { useEffect, useState } from "react";
 
 interface Props {
   wallet: Wallet;
-  isNetworkLoading: boolean;
 }
 
-export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
+export function WalletNativeBalance({ wallet }: Props) {
   const [balance, setBalance] = useState("");
   const [isBalanceLoading, setIsBalanceLoading] = useState(false);
 
@@ -36,7 +35,7 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
 
   return (
     <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
-      {isNetworkLoading || isBalanceLoading ? (
+      {isBalanceLoading ? (
         <Spinner className="size-4 opacity-70" />
       ) : balance ? (
         formatWalletBalance({ balance, network: currentNetwork })
