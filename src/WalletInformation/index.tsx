@@ -4,7 +4,7 @@ import {
   Wallet,
 } from "@dynamic-labs/sdk-react-core";
 import { useCallback, useEffect, useState } from "react";
-import { WalletSelector } from "./NetworkSelector";
+import { NetworkSelector } from "./NetworkSelector";
 import WalletActions from "./WalletActions";
 import WalletNativeBalance from "./WalletNativeBalance";
 
@@ -13,11 +13,8 @@ interface Props {
 }
 
 export default function WalletInformation({ wallet }: Props) {
-  const {
-    network: currentNetworkChainId,
-    networkConfigurations,
-    handleUnlinkWallet,
-  } = useDynamicContext();
+  const { network: currentNetworkChainId, networkConfigurations } =
+    useDynamicContext();
   const switchNetwork = useSwitchNetwork();
 
   const [currentNetwork, setCurrentNetwork] = useState(
@@ -50,23 +47,23 @@ export default function WalletInformation({ wallet }: Props) {
 
   return (
     <div className="flex flex-col gap-2 md:flex-row">
-      <WalletSelector
-        value={currentNetworkChainId || ""}
-        networkOptions={networkOptions || []}
-        disabled={isNetworkLoading}
-        onNetworkSelect={handleNetworkChange}
-      />
-      <div className="flex flex-col gap-2">
-        <WalletNativeBalance
-          wallet={wallet}
-          isNetworkLoading={isNetworkLoading}
+      <div className="self-start rounded-default bg-card">
+        <NetworkSelector
+          value={currentNetworkChainId || ""}
+          networkOptions={networkOptions || []}
+          disabled={isNetworkLoading}
+          onNetworkSelect={handleNetworkChange}
         />
-        <div>
-          <WalletActions />
-          buttons
-          <button onClick={() => handleUnlinkWallet(wallet.id)}>
-            disconnect
-          </button>
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="rounded-default bg-card">
+          <WalletNativeBalance
+            wallet={wallet}
+            isNetworkLoading={isNetworkLoading}
+          />
+        </div>
+        <div className="rounded-default bg-card p-4">
+          <WalletActions wallet={wallet} />
         </div>
       </div>
     </div>

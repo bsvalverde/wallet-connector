@@ -17,7 +17,7 @@ export default function WalletOptionListItem({ wallet, onClick }: Props) {
         onClick={onClick}
       >
         <WalletIcon className="size-10" walletKey={key} />
-        <p>{name}</p>
+        <p className="overflow-hidden text-ellipsis">{name}</p>
       </Button>
     </li>
   );

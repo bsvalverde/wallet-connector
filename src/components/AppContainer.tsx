@@ -5,10 +5,10 @@ import WalletConnector from "../WalletConnector";
 import PageLayout from "./PageLayout";
 
 export default function AppContainer() {
-  const { sdkHasLoaded, primaryWallet } = useDynamicContext();
+  const { loadingNetwork, sdkHasLoaded, primaryWallet } = useDynamicContext();
 
   let content = <LoaderCircle className="size-8 animate-spin" />;
-  if (sdkHasLoaded) {
+  if (sdkHasLoaded && !loadingNetwork) {
     content = primaryWallet ? (
       <WalletInformation wallet={primaryWallet} />
     ) : (
