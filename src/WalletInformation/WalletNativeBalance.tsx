@@ -19,10 +19,7 @@ interface Props {
   isNetworkLoading: boolean;
 }
 
-export default function WalletNativeBalance({
-  wallet,
-  isNetworkLoading,
-}: Props) {
+export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
   const [balance, setBalance] = useState("");
   const [isBalanceLoading, setIsBalanceLoading] = useState(false);
 

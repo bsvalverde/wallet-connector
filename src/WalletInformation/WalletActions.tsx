@@ -7,7 +7,7 @@ interface Props {
   wallet: Wallet;
 }
 
-export default function WalletActions({ wallet }: Props) {
+export function WalletActions({ wallet }: Props) {
   const { handleUnlinkWallet } = useDynamicContext();
 
   return (

@@ -5,14 +5,14 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 import { useCallback, useEffect, useState } from "react";
 import { NetworkSelector } from "./NetworkSelector";
-import WalletActions from "./WalletActions";
-import WalletNativeBalance from "./WalletNativeBalance";
+import { WalletActions } from "./WalletActions";
+import { WalletNativeBalance } from "./WalletNativeBalance";
 
 interface Props {
   wallet: Wallet;
 }
 
-export default function WalletInformation({ wallet }: Props) {
+export function WalletInformation({ wallet }: Props) {
   const { network: currentNetworkChainId, networkConfigurations } =
     useDynamicContext();
   const switchNetwork = useSwitchNetwork();
@@ -47,7 +47,7 @@ export default function WalletInformation({ wallet }: Props) {
 
   return (
     <div className="flex flex-col gap-2 md:flex-row">
-      <div className="self-start rounded-default bg-card">
+      <div className="rounded-default bg-card md:self-start">
         <NetworkSelector
           value={currentNetworkChainId || ""}
           networkOptions={networkOptions || []}

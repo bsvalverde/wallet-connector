@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { config } from "../lib/wagmi";
 import env from "../utils/envSchema";
-import AppContainer from "./AppContainer";
+import { AppContainer } from "./AppContainer";
 
 const queryClient = new QueryClient();
 
-export default function RootContainer() {
+export function RootContainer() {
   return (
     <DynamicContextProvider
       settings={{

@@ -7,7 +7,7 @@ interface Props {
   onClick: VoidFunction;
 }
 
-export default function WalletOptionListItem({ wallet, onClick }: Props) {
+export function WalletOptionListItem({ wallet, onClick }: Props) {
   const { key, name } = wallet;
 
   return (

@@ -6,7 +6,7 @@ import {
 } from "@/components/UI/Dialog";
 import { ScrollArea } from "@/components/UI/ScrollArea";
 import { WalletOption } from "@/types/wallet";
-import WalletOptionListItem from "./WalletOptionListItem";
+import { WalletOptionListItem } from "./WalletOptionListItem";
 
 interface Props {
   walletOptions: WalletOption[];
@@ -15,7 +15,7 @@ interface Props {
   onWalletSelect: (walletKey: string) => void;
 }
 
-export default function WalletOptionList({
+export function WalletOptionList({
   walletOptions,
   isOpen,
   onClose,

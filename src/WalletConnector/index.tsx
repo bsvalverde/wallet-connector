@@ -6,9 +6,9 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 import { pipe } from "@dynamic-labs/utils";
 import { useState } from "react";
-import WalletOptionList from "./WalletOptionList";
+import { WalletOptionList } from "./WalletOptionList";
 
-export default function WalletConnector() {
+export function WalletConnector() {
   const [showOptions, setShowOptions] = useState(false);
 
   const { getFilteredWalletOptions } = useWalletOptions();

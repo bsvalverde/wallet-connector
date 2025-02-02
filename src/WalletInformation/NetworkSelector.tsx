@@ -26,7 +26,7 @@ export function NetworkSelector({
       onValueChange={(value) => onNetworkSelect(value)}
       disabled={disabled}
     >
-      <SelectTrigger className="w-[140px]">
+      <SelectTrigger className="md:w-[140px]">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

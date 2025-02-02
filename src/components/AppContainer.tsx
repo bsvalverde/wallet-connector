@@ -1,10 +1,10 @@
-import WalletInformation from "@/WalletInformation";
+import { WalletInformation } from "@/WalletInformation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import WalletConnector from "../WalletConnector";
+import { WalletConnector } from "../WalletConnector";
 import PageLayout from "./PageLayout";
 import { Spinner } from "./UI/Spinner";
 
-export default function AppContainer() {
+export function AppContainer() {
   const { loadingNetwork, sdkHasLoaded, primaryWallet } = useDynamicContext();
 
   let content = <Spinner className="size-8" />;
