@@ -14,8 +14,12 @@ export const formatWalletBalance = ({
   balance: string;
   network?: Network;
 }) => {
-  const [integer, decimals = ""] = balance.split(".");
-  const formattedBalance = `${integer}.${decimals.slice(0, 3).padEnd(3, "0")}`;
+  const [integer] = balance.split(".");
+  const formattedBalance = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: integer.length === 1 ? 3 : 2,
+    minimumIntegerDigits: 1,
+    notation: "compact",
+  }).format(parseFloat(balance));
 
   if (!network) {
     return formattedBalance;
