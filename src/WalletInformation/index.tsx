@@ -1,4 +1,5 @@
 import {
+  EvmNetwork,
   useDynamicContext,
   useSwitchNetwork,
   Wallet,
@@ -50,7 +51,7 @@ export function WalletInformation({ wallet }: Props) {
       <div className="rounded-default bg-card md:self-start">
         <NetworkSelector
           value={currentNetworkChainId || ""}
-          networkOptions={networkOptions || []}
+          networkOptions={(networkOptions as EvmNetwork[]) || []}
           disabled={isNetworkLoading}
           onNetworkSelect={handleNetworkChange}
         />

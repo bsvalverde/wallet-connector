@@ -1,18 +1,12 @@
-import { SynergyIcon } from "@/components/Icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/UI/Select";
 import { Spinner } from "@/components/UI/Spinner";
+import { formatWalletBalance } from "@/utils/formatWalletInformation";
 import {
-  formatWalletAddress,
-  formatWalletBalance,
-} from "@/utils/formatWalletInformation";
-import { useDynamicContext, Wallet } from "@dynamic-labs/sdk-react-core";
+  EvmNetwork,
+  useDynamicContext,
+  Wallet,
+} from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from "react";
+import { WalletSelector } from "./WalletSelector";
 
 interface Props {
   wallet: Wallet;
@@ -39,7 +33,7 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
 
   const currentNetwork = networkOptions?.find(
     (network) => network.chainId === currentNetworkChainId,
-  );
+  ) as EvmNetwork;
 
   return (
     <div className="flex flex-row items-center">
@@ -51,19 +45,7 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
         )}
       </span>
       <span className="text-muted-foreground">|</span>
-      <Select value={wallet.id} disabled={isNetworkLoading}>
-        <SelectTrigger>
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem key={wallet.id} value={wallet.id}>
-            <div className="flex flex-row items-center gap-1">
-              <SynergyIcon className="size-4" />
-              {formatWalletAddress(wallet.address)}
-            </div>
-          </SelectItem>
-        </SelectContent>
-      </Select>
+      <WalletSelector disabled={isNetworkLoading} />
     </div>
   );
 }

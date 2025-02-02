@@ -5,11 +5,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/UI/Select";
-import { Network } from "@/types/networks";
+import { EvmNetwork } from "@dynamic-labs/sdk-react-core";
 
 interface Props {
   value: string | number;
-  networkOptions: Network[];
+  networkOptions: EvmNetwork[];
   disabled: boolean;
   onNetworkSelect: (chainId: string | number) => void;
 }

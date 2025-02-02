@@ -1,4 +1,4 @@
-import { Network } from "@/types/networks";
+import { EvmNetwork } from "@dynamic-labs/sdk-react-core";
 
 export const formatWalletAddress = (address: string) => {
   const initialPart = address.slice(0, 4);
@@ -12,7 +12,7 @@ export const formatWalletBalance = ({
   network,
 }: {
   balance: string;
-  network?: Network;
+  network?: EvmNetwork;
 }) => {
   const [integer] = balance.split(".");
   const formattedBalance = new Intl.NumberFormat("en-US", {
