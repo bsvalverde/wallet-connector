@@ -38,8 +38,10 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
     <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
       {isNetworkLoading || isBalanceLoading ? (
         <Spinner className="size-4 opacity-70" />
-      ) : (
+      ) : balance ? (
         formatWalletBalance({ balance, network: currentNetwork })
+      ) : (
+        "---"
       )}
     </span>
   );

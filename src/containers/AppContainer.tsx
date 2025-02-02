@@ -5,10 +5,10 @@ import PageLayout from "../components/PageLayout";
 import { Spinner } from "../components/UI/Spinner";
 
 export function AppContainer() {
-  const { loadingNetwork, sdkHasLoaded, primaryWallet } = useDynamicContext();
+  const { sdkHasLoaded, primaryWallet } = useDynamicContext();
 
   let content = <Spinner className="size-8" />;
-  if (sdkHasLoaded && !loadingNetwork) {
+  if (sdkHasLoaded) {
     content = primaryWallet ? (
       <WalletInformation wallet={primaryWallet} />
     ) : (
