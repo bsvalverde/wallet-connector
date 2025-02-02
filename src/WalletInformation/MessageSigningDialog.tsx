@@ -43,7 +43,7 @@ export function MessageSigningDialog({ wallet }: Props) {
       <DialogTrigger asChild>
         <Button>Sign Message</Button>
       </DialogTrigger>
-      <DialogContent aria-describedby={undefined}>
+      <DialogContent aria-describedby="Dialog that allows user to type a message to be signed by the currently displayed wallet">
         <DialogHeader>
           <DialogTitle>Sign a message</DialogTitle>
         </DialogHeader>

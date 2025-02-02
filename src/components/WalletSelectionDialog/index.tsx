@@ -64,7 +64,7 @@ export function WalletSelectionDialog({ isOpen, onOpenChange }: Props) {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         onInteractOutside={(event) => event.preventDefault()}
-        aria-describedby={undefined}
+        aria-describedby="Dialog listing installed wallets to be chosen for connection"
         hideOverlay
       >
         <DialogHeader>
