@@ -1,25 +1,17 @@
-import { SynergyIcon } from "@/components/Icons";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/UI/Select";
 import { Spinner } from "@/components/UI/Spinner";
+import { formatWalletBalance } from "@/utils/formatWalletInformation";
 import {
-  formatWalletAddress,
-  formatWalletBalance,
-} from "@/utils/formatWalletInformation";
-import { useDynamicContext, Wallet } from "@dynamic-labs/sdk-react-core";
+  EvmNetwork,
+  useDynamicContext,
+  Wallet,
+} from "@dynamic-labs/sdk-react-core";
 import { useEffect, useState } from "react";
 
 interface Props {
   wallet: Wallet;
-  isNetworkLoading: boolean;
 }
 
-export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
+export function WalletNativeBalance({ wallet }: Props) {
   const [balance, setBalance] = useState("");
   const [isBalanceLoading, setIsBalanceLoading] = useState(false);
 
@@ -39,31 +31,17 @@ export function WalletNativeBalance({ wallet, isNetworkLoading }: Props) {
 
   const currentNetwork = networkOptions?.find(
     (network) => network.chainId === currentNetworkChainId,
-  );
+  ) as EvmNetwork;
 
   return (
-    <div className="flex flex-row items-center">
-      <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
-        {isNetworkLoading || isBalanceLoading ? (
-          <Spinner className="size-4 opacity-70" />
-        ) : (
-          formatWalletBalance({ balance, network: currentNetwork })
-        )}
-      </span>
-      <span className="text-muted-foreground">|</span>
-      <Select value={wallet.id} disabled={isNetworkLoading}>
-        <SelectTrigger>
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem key={wallet.id} value={wallet.id}>
-            <div className="flex flex-row items-center gap-1">
-              <SynergyIcon className="size-4" />
-              {formatWalletAddress(wallet.address)}
-            </div>
-          </SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
+    <span className="flex min-w-24 items-center justify-center whitespace-nowrap px-3 text-sm font-medium tracking-default">
+      {isBalanceLoading ? (
+        <Spinner className="size-4 opacity-70" />
+      ) : balance ? (
+        formatWalletBalance({ balance, network: currentNetwork })
+      ) : (
+        "---"
+      )}
+    </span>
   );
 }

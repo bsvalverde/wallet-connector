@@ -1,71 +1,31 @@
-import {
-  useDynamicContext,
-  useSwitchNetwork,
-  Wallet,
-} from "@dynamic-labs/sdk-react-core";
-import { useCallback, useEffect, useState } from "react";
-import { NetworkSelector } from "./NetworkSelector";
-import { WalletActions } from "./WalletActions";
-import { WalletNativeBalance } from "./WalletNativeBalance";
+import { useDisconnect } from "@/components/hooks/useDisconnect";
+import { Wallet } from "@dynamic-labs/sdk-react-core";
+import { useEffect, useState } from "react";
+import { WalletAuthenticationDialog } from "./WalletAuthenticationDialog";
+import { WalletInformationLayout } from "./WalletInformationLayout";
 
 interface Props {
   wallet: Wallet;
 }
 
 export function WalletInformation({ wallet }: Props) {
-  const { network: currentNetworkChainId, networkConfigurations } =
-    useDynamicContext();
-  const switchNetwork = useSwitchNetwork();
+  const [isWalletAuthenticated, setIsWalletAuthenticated] = useState(false);
 
-  const [currentNetwork, setCurrentNetwork] = useState(
-    parseInt(`${currentNetworkChainId}`) || 0,
-  );
-  const [isNetworkLoading, setIsNetworkLoading] = useState(false);
+  const { disconnect } = useDisconnect();
 
   useEffect(() => {
-    if (currentNetwork === currentNetworkChainId) {
-      setIsNetworkLoading(false);
-    }
-  }, [currentNetwork, currentNetworkChainId]);
-
-  const handleNetworkChange = useCallback(
-    async (chainId: string | number) => {
-      setIsNetworkLoading(true);
-      try {
-        const networkId = parseInt(`${chainId}`);
-        await switchNetwork({ wallet, network: networkId });
-        setCurrentNetwork(networkId);
-      } catch (error) {
-        setIsNetworkLoading(false);
-        console.error(error);
-      }
-    },
-    [wallet, switchNetwork],
-  );
-
-  const { evm: networkOptions } = networkConfigurations || {};
+    setIsWalletAuthenticated(false);
+  }, [wallet]);
 
   return (
-    <div className="flex flex-col gap-2 md:flex-row">
-      <div className="rounded-default bg-card md:self-start">
-        <NetworkSelector
-          value={currentNetworkChainId || ""}
-          networkOptions={networkOptions || []}
-          disabled={isNetworkLoading}
-          onNetworkSelect={handleNetworkChange}
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="rounded-default bg-card">
-          <WalletNativeBalance
-            wallet={wallet}
-            isNetworkLoading={isNetworkLoading}
-          />
-        </div>
-        <div className="rounded-default bg-card p-4">
-          <WalletActions wallet={wallet} />
-        </div>
-      </div>
-    </div>
+    <>
+      <WalletAuthenticationDialog
+        wallet={wallet}
+        isOpen={!isWalletAuthenticated}
+        onWalletValidation={() => setIsWalletAuthenticated(true)}
+        onCancel={disconnect}
+      />
+      <WalletInformationLayout wallet={wallet} />
+    </>
   );
 }

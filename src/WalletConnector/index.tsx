@@ -1,33 +1,19 @@
 import { Button } from "@/components/UI/Button";
-import {
-  FilterChain,
-  useWalletItemActions,
-  useWalletOptions,
-} from "@dynamic-labs/sdk-react-core";
-import { pipe } from "@dynamic-labs/utils";
+import { WalletSelectionDialog } from "@/components/WalletSelectionDialog";
 import { useState } from "react";
-import { WalletOptionList } from "./WalletOptionList";
 
 export function WalletConnector() {
-  const [showOptions, setShowOptions] = useState(false);
-
-  const { getFilteredWalletOptions } = useWalletOptions();
-  const { openWallet } = useWalletItemActions();
-
-  const walletOptions = getFilteredWalletOptions(
-    pipe(FilterChain("EVM")).pipe((wallets) =>
-      wallets.filter((wallet) => wallet.isInstalledOnBrowser),
-    ),
-  );
+  const [showWalletSelectionDialog, setShowWalletSelectionDialog] =
+    useState(false);
 
   return (
     <>
-      <Button onClick={() => setShowOptions(true)}>Connect Wallet</Button>
-      <WalletOptionList
-        walletOptions={walletOptions}
-        isOpen={showOptions}
-        onClose={() => setShowOptions(false)}
-        onWalletSelect={openWallet}
+      <Button onClick={() => setShowWalletSelectionDialog(true)}>
+        Connect Wallet
+      </Button>
+      <WalletSelectionDialog
+        isOpen={showWalletSelectionDialog}
+        onOpenChange={setShowWalletSelectionDialog}
       />
     </>
   );
